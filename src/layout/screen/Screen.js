@@ -1,14 +1,21 @@
 import '../../styles/screen.css';
 import React from 'react';
 import ResultScreen from './ResultScreen';
-import ComputationScreen from './ComputationScreen';
+import { connect } from 'react-redux';
 
-const screen = (props) => {
+
+const screen = ({ displayValue }) => {
     return(
     <section className="screen">
-        <ResultScreen>{props.result}</ResultScreen>
+        <ResultScreen>{displayValue}</ResultScreen>
     </section>
     )
 };
 
-export default screen;
+const mapStateToProps = state => {
+    return {
+        displayValue: state.data.displayValue
+    }
+};
+
+export default connect(mapStateToProps)(screen);

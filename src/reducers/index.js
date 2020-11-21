@@ -16,7 +16,13 @@ const INITIAL_STATE = {
     waitingForNumber: false
 };
 
-const calculatorReducer =(state = {INITIAL_STATE}, action) => {
+const calculatorReducer = (
+    state = {
+        value: INITIAL_STATE.value,
+        displayValue: INITIAL_STATE.displayValue,
+        operator: INITIAL_STATE.operator,
+        waitingForNumber: INITIAL_STATE.waitingForNumber}, action) => {
+
     switch (action.type) {
         case CLEAR_ALL:
             return {...state, value: null, displayValue: '0', operator: null, waitingForNumber: false};
@@ -52,5 +58,5 @@ const calculatorReducer =(state = {INITIAL_STATE}, action) => {
 };
 
 export default combineReducers({
-    data: calculatorReducer
+    data : calculatorReducer
 });

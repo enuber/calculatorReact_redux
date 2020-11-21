@@ -17,14 +17,14 @@ const CalcOperations = {
 };
 
 export const clearAll = () => {
-    return (
-        type: CLEAR_ALL,
-    );
+    return {
+        type: CLEAR_ALL
+    }
 };
 
 export const clearDisplay = () => {
     return {
-        type: CLEAR_DISPLAY,
+        type: CLEAR_DISPLAY
     }
 };
 
@@ -79,7 +79,7 @@ export const decimalInput = ( value, displayValue, waitingForNumber ) => {
 
 export const digitInput = (number, displayValue, waitingForNumber) => {
     let data = {
-        displayValue: displayValue
+        displayValue: displayValue,
         waitingForNumber: waitingForNumber
     };
     if(waitingForNumber) {

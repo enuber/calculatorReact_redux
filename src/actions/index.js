@@ -56,19 +56,20 @@ export const percentInput = ( value, displayValue, operator ) => {
 };
 
 export const decimalInput = ( value, displayValue, waitingForNumber ) => {
+    debugger;
     const data = {
         displayValue : displayValue,
         waitingForNumber: waitingForNumber
     };
     //check first to see if value is not equal to display value as in this case value starts at null. If they aren't equal
     //we check to see if a decimal already exists. if it doesn't we are then adding in a decimal
-    if (value !== parseFloat(displayValue)  && displayValue.indexOf('.') === -1) {
-        data.displayValue = displayValue + '.';
+    if (value !== parseFloat(data.displayValue)  && data.displayValue.indexOf('.') === -1) {
+        data.displayValue = data.displayValue + '.';
         data.waitingForNumber = false;
         //if value is equal to the display value and we are waiting for the second number to be entered, we need to start it off with
         //a "0." because the decimal was clicked before a number.
-    } else if ((value === parseFloat(displayValue) && waitingForNumber)) {
-        data.displayValue = 0;
+    } else if ((value === parseFloat(data.displayValue) && data.waitingForNumber)) {
+        data.displayValue = '0.';
         data.waitingForNumber = false;
     }
     return {
@@ -83,22 +84,19 @@ export const digitInput = (number, displayValue, waitingForNumber) => {
         waitingForNumber: waitingForNumber
     };
     if(waitingForNumber) {
-        data = {
-            displayValue: String(number),
-            waitingForNumber: false
-        };
+        data.displayValue = String(number);
+        data.waitingForNumber = false;
     } else {
-        data = {
-            displayValue: displayValue === '0' ? String(number) : displayValue + number
-        }
+        data.displayValue = displayValue === '0' ? String(number) : displayValue + number;
     }
     return {
         type: DIGIT_INPUT,
         payload: data
-    }
+    };
 };
 
 export const doMath = (nextOperator, value, displayValue, operator, waitingForNumber) => {
+    debugger;
     let data = {
         value: value,
         displayValue: displayValue,
@@ -107,21 +105,15 @@ export const doMath = (nextOperator, value, displayValue, operator, waitingForNu
     };
     const inputValue = parseFloat(displayValue);
     if (value == null) {
-        data = {
-            value: inputValue
-        }
+        data.value =inputValue
     } else if (operator && !waitingForNumber) {
         const currentValue = value || 0;
         const newValue = CalcOperations[operator](currentValue, inputValue);
-        data = {
-            value: newValue,
-            displayValue: String(newValue)
-        }
+        data.value = newValue;
+        data.displayValue = String(newValue);
     }
-    data = {
-        waitingForNumber: true,
-        operator: nextOperator
-    };
+    data.waitingForNumber = true;
+    data.operator = nextOperator;
     return {
         type: DO_MATH,
         payload: data

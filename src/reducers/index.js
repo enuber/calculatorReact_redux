@@ -21,7 +21,8 @@ const calculatorReducer = (
         value: INITIAL_STATE.value,
         displayValue: INITIAL_STATE.displayValue,
         operator: INITIAL_STATE.operator,
-        waitingForNumber: INITIAL_STATE.waitingForNumber}, action) => {
+        waitingForNumber: INITIAL_STATE.waitingForNumber
+    }, action) => {
 
     switch (action.type) {
         case CLEAR_ALL:
